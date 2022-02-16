@@ -793,7 +793,7 @@ namespace CTML
                             options.formatting,
                             true,
                             options.indentLevel + 1,
-                            true
+                            options.escapeContent
                         ));
 
                     output << indent << "</" << m_name << ">";
