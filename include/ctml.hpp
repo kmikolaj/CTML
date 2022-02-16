@@ -390,7 +390,7 @@ namespace CTML
      * 
      * Returns either the character that is at the position one ahead of the index, or a null char.
      */
-    inline const char get_lookahead_char(const std::string& selector, size_t index)
+    inline char get_lookahead_char(const std::string& selector, size_t index)
     {
         if (selector.size() <= index + 1)
         {
