@@ -779,26 +779,36 @@ namespace CTML
                         output << " " << attr.first << "=\"" << value + "\"";
                 }
 
-                output << ">";
-
-                if (options.formatting == StringFormatting::MULTIPLE_LINES)
-                    output << "\n";
-
-                // if we have a closing tag, then add children as well
-                // as the closing tag to the output
-                if (m_closeTag)
+                if (m_children.size() > 0)
                 {
-                    for (const auto& child : m_children)
-                        output << child.ToString(ToStringOptions(
-                            options.formatting,
-                            true,
-                            options.indentLevel + 1,
-                            options.escapeContent
-                        ));
+                    output << ">";
 
-                    output << indent << "</" << m_name << ">";
+                    if (options.formatting == StringFormatting::MULTIPLE_LINES)
+                        output << "\n";
 
-                    if (options.formatting == StringFormatting::MULTIPLE_LINES && options.trailingNewline)
+                    // if we have a closing tag, then add children as well
+                    // as the closing tag to the output
+                    if (m_closeTag)
+                    {
+                        for (const auto& child : m_children)
+                            output << child.ToString(ToStringOptions(
+                                options.formatting,
+                                true,
+                                options.indentLevel + 1,
+                                options.escapeContent
+                            ));
+
+                        output << indent << "</" << m_name << ">";
+
+                        if (options.formatting == StringFormatting::MULTIPLE_LINES && options.trailingNewline)
+                            output << "\n";
+                    }
+                }
+                else
+                {
+                    output << "/>";
+
+                    if (options.formatting == StringFormatting::MULTIPLE_LINES)
                         output << "\n";
                 }
             }
